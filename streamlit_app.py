@@ -25,7 +25,7 @@ st.write('The name on your Smoothie will be:', name_on_order)
 
 query = f"SELECT DISTINCT FRUIT_NAME , SEARCH_ON FROM SMOOTHIES.PUBLIC.FRUIT_OPTIONS"
 my_dataframe = cnx.query(query) 
-st.dataframe(data=my_dataframe, use_container_width = True)
+st.dataframe(data=my_dataframe, width='stretch')
 # st.stop()
 
 pd_df = my_dataframe #.to_pandas
@@ -63,7 +63,7 @@ if ingredients_list:
         st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
         st.subheader(fruit_chosen + ' Nutrition Information')
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + search_on)
-        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width = True)
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), width='stretch')
 
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
                 values ('""" + ingredients_string + """', '""" +name_on_order+"""')"""
@@ -75,7 +75,7 @@ if ingredients_list:
         try:
             with cnx.cursor() as cur:
                 cur.execute(my_insert_stmt)
-                cnx.commit()
+                cnx._instance.commit()
                 st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
         except Exception as e:
             st.error(f"Error inserting data: {e}")
