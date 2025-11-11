@@ -20,26 +20,25 @@ st.write('The name on your Smoothie will be:', name_on_order)
 # my_dataframe = cnx.query("SELECT fruit_name FROM SMOOTHIES.PUBLIC.FRUIT_OPTIONS")
 # # st.dataframe(my_dataframe)
 
-# # df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct().to_pandas()
+# # df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct()
 # options_list = my_dataframe[fruit_name].tolist()
 
 # Function to get a Snowpark session (works automatically in Streamlit in Snowflake)
-def get_snowflake_session():
-    try:
-        session = st.connection("snowflake")
-    except Exception as e:
-        # Handle local development connection (using secrets.toml)
-        conn = st.connection("snowflake")
-        session = conn.get_snowpark_session()
-    return session
+# def get_snowflake_session():
+    # try:
+        # session = st.connection("snowflake")
+    # except Exception as e:
+        # # Handle local development connection (using secrets.toml)
+        # conn = st.connection("snowflake")
+        # session = conn.get_snowpark_session()
+    # return session
 
 
 @st.cache_data
 def get_dropdown_options(table_name, column_name):
-    session = get_snowflake_session()
     query = f"SELECT DISTINCT {column_name} FROM {table_name}"
     # Use session.sql to run the query and convert to a Pandas DataFrame
-    df = cnx.sql(query).to_pandas()
+    df = cnx.query(query).to_pandas()
     # Extract the column values into a list
     options_list = df[column_name].tolist()
     return options_list
