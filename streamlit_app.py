@@ -25,7 +25,7 @@ st.write('The name on your Smoothie will be:', name_on_order)
 
 query = f"SELECT DISTINCT FRUIT_NAME , SEARCH_ON FROM SMOOTHIES.PUBLIC.FRUIT_OPTIONS"
 my_dataframe = cnx.query(query) 
-# st.dataframe(data=my_dataframe, use_container_width = True)
+st.dataframe(data=my_dataframe, use_container_width = True)
 # st.stop()
 
 pd_df = my_dataframe #.to_pandas
