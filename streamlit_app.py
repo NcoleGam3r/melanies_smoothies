@@ -39,7 +39,7 @@ def get_dropdown_options(table_name, column_name):
     session = get_snowflake_session()
     query = f"SELECT DISTINCT {column_name} FROM {table_name}"
     # Use session.sql to run the query and convert to a Pandas DataFrame
-    df = session.sql(query).to_pandas()
+    df = cnx.sql(query).to_pandas()
     # Extract the column values into a list
     options_list = df[column_name].tolist()
     return options_list
