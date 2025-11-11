@@ -56,8 +56,8 @@ if ingredients_list:
 
     if time_to_start:
         # Access the raw connection and create a cursor
-        raw_conn = cnx.raw_connection
-        cursor = raw_conn.cursor()
+        # raw_conn = cnx.raw_connection
+        cursor = cnx.cursor()
         cursor.execute(my_insert_stmt)
-        raw_conn.commit()
+        cnx.commit()
         st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
