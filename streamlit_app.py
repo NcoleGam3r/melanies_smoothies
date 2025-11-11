@@ -5,7 +5,8 @@ from snowflake.snowpark.functions import col
 
 cnx = st.connection("snowflake")
 session = cnx.session
-
+raw_conn = cxn.raw_connection
+cursor = raw_conn.cursor()
 
 # Write directly to the app
 st.title(f":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
@@ -55,9 +56,15 @@ if ingredients_list:
     time_to_start = st.button('Submit Order')
 
     if time_to_start:
-        # Access the raw connection and create a cursor
-        # raw_conn = cnx.raw_connection
-        cursor = cnx.cursor()
-        cursor.execute(my_insert_stmt)
-        cnx.commit()
-        st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
+        try:
+            # Access the raw connection and create a cursor
+            cursor.execute(my_insert_stmt)
+            raw_conn.commit()
+            st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
+        except Exception as e:
+            st.error(f"Error inserting data: {e}")
+        finally:
+            cursor.close()
+            raw_conn.close()
+        
+        
