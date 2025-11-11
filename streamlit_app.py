@@ -17,15 +17,34 @@ st.write(
 name_on_order =st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
-my_dataframe = cnx.query("SELECT fruit_name FROM smoothies.public.fruit_options")
-# st.dataframe(my_dataframe)
+# my_dataframe = cnx.query("SELECT fruit_name FROM SMOOTHIES.PUBLIC.FRUIT_OPTIONS")
+# # st.dataframe(my_dataframe)
 
-# df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct().to_pandas()
-options_list = my_dataframe[fruit_name].tolist()
+# # df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct().to_pandas()
+# options_list = my_dataframe[fruit_name].tolist()
 
+
+@st.cache_data
+def get_dropdown_options(table_name, column_name):
+    session = get_snowflake_session()
+    query = f"SELECT DISTINCT {column_name} FROM {table_name}"
+    # Use session.sql to run the query and convert to a Pandas DataFrame
+    df = session.sql(query).to_pandas()
+    # Extract the column values into a list
+    options_list = df[column_name].tolist()
+    return options_list
+    
+   # Define your table and column names
+TABLE_NAME = 'SMOOTHIES.PUBLIC.FRUIT_OPTIONS' 
+COLUMN_NAME = 'FRUIT_NAME'
+
+# Fetch the options list
+options = get_dropdown_options(TABLE_NAME, COLUMN_NAME)
+
+# Create the multiselect widget with a limit of 5 selections
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients'
-    , options_list
+    , options
     , max_selections = 5
 )
 
