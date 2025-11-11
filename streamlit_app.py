@@ -26,7 +26,6 @@ st.write('The name on your Smoothie will be:', name_on_order)
 
 @st.cache_data
 def get_dropdown_options(table_name, column_name):
-    session = get_snowflake_session()
     query = f"SELECT DISTINCT {column_name} FROM {table_name}"
     # Use session.sql to run the query and convert to a Pandas DataFrame
     df = session.sql(query).to_pandas()
