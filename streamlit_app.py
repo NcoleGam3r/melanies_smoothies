@@ -23,9 +23,20 @@ st.write('The name on your Smoothie will be:', name_on_order)
 # # df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct().to_pandas()
 # options_list = my_dataframe[fruit_name].tolist()
 
+# Function to get a Snowpark session (works automatically in Streamlit in Snowflake)
+def get_snowflake_session():
+    try:
+        session = st.connection("snowflake")
+    except Exception as e:
+        # Handle local development connection (using secrets.toml)
+        conn = st.connection("snowflake")
+        session = conn.get_snowpark_session()
+    return session
+
 
 @st.cache_data
 def get_dropdown_options(table_name, column_name):
+    session = get_snowflake_session()
     query = f"SELECT DISTINCT {column_name} FROM {table_name}"
     # Use session.sql to run the query and convert to a Pandas DataFrame
     df = session.sql(query).to_pandas()
