@@ -61,7 +61,7 @@ if ingredients_list:
             cursor = raw_conn.cursor()
             cursor.execute(my_insert_stmt)
             raw_conn.commit()
-            st.success("Data inserted successfully.")
+            # st.success("Data inserted successfully.")
         except Exception as e:
             st.error(f"Error inserting data: {e}")
         finally:
