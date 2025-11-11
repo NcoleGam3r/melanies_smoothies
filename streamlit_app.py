@@ -8,6 +8,7 @@ cnx = st.connection("snowflake")
 session = cnx.session
 raw_conn = cnx.raw_connection
 cursor = raw_conn.cursor()
+
 # Define your table and column names
 TABLE_NAME = 'SMOOTHIES.PUBLIC.FRUIT_OPTIONS' 
 COLUMN_NAME = 'FRUIT_NAME'
@@ -25,7 +26,7 @@ st.write(
 name_on_order =st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
-query = f"SELECT DISTINCT {column_name} , {column_name_2} FROM {table_name}"
+query = f"SELECT DISTINCT FRUIT_NAME , SEARCH_ON FROM SMOOTHIES.PUBLIC.FRUIT_OPTIONS"
 my_dataframe = cnx.query(query) 
 st.dataframe(data=my_dataframe, use_container_width = True)
 st.stop()
