@@ -57,14 +57,12 @@ if ingredients_list:
 
     if time_to_start:
         try:
-            # Access the raw connection and create a cursor
-            cursor.execute(my_insert_stmt)
-            raw_conn.commit()
-            st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
+            with cnx.cursor() as cur:
+                cur.execute(my_insert_stmt)
+                cnx.commit()
+                st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
         except Exception as e:
             st.error(f"Error inserting data: {e}")
-        finally:
-            cursor.close()
-            raw_conn.close()
+
         
         
