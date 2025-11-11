@@ -5,7 +5,7 @@ from snowflake.snowpark.functions import col
 
 cnx = st.connection("snowflake")
 session = cnx.session
-raw_conn = cxn.raw_connection
+raw_conn = cnx.raw_connection
 cursor = raw_conn.cursor()
 
 # Write directly to the app
