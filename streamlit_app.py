@@ -17,22 +17,6 @@ st.write(
 name_on_order =st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
-# my_dataframe = cnx.query("SELECT fruit_name FROM SMOOTHIES.PUBLIC.FRUIT_OPTIONS")
-# # st.dataframe(my_dataframe)
-
-# # df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct()
-# options_list = my_dataframe[fruit_name].tolist()
-
-# Function to get a Snowpark session (works automatically in Streamlit in Snowflake)
-# def get_snowflake_session():
-    # try:
-        # session = st.connection("snowflake")
-    # except Exception as e:
-        # # Handle local development connection (using secrets.toml)
-        # conn = st.connection("snowflake")
-        # session = conn.get_snowpark_session()
-    # return session
-
 
 @st.cache_data
 def get_dropdown_options(table_name, column_name):
@@ -73,6 +57,7 @@ if ingredients_list:
     time_to_start = st.button('Submit Order')
 
     if time_to_start:
-        session.sql(my_insert_stmt).collect()
+        # session.sql(my_insert_stmt).collect()
+        cnx.query(my_insert_stmt)
         
         st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
