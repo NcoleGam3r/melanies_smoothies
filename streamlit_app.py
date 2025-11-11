@@ -64,7 +64,4 @@ if ingredients_list:
             st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
         except Exception as e:
             st.error(f"Error inserting data: {e}")
-        # finally:
-            # cursor.close()
-            # raw_conn.close()
-        
+     
