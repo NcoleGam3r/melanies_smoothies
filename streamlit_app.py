@@ -17,7 +17,7 @@ st.write(
 name_on_order =st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
-my_dataframe = cnx.query("SELECT fruit_name FROM smoothies.public.fruit_options").to_pandas()
+my_dataframe = cnx.query("SELECT fruit_name FROM smoothies.public.fruit_options")
 # st.dataframe(my_dataframe)
 
 # df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct().to_pandas()
