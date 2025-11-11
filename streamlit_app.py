@@ -17,13 +17,11 @@ st.write(
 name_on_order =st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
+my_dataframe = cnx.query("SELECT fruit_name FROM smoothies.public.fruit_options")
+st.dataframe(my_dataframe)
 
-#conn = st.connection("snowflake")
-#my_dataframe = conn.query("SELECT fruit_name FROM smoothies.public.fruit_options")
-#st.dataframe(my_dataframe)
-
-df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct().to_pandas()
-dropdown_options = df[fruit_name].tolist()
+# df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct().to_pandas()
+dropdown_options = st.dataframe.tolist()
 
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients'
