@@ -16,11 +16,14 @@ st.write(
 name_on_order =st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+
+conn = st.connection("snowflake")
+my_dataframe = conn.query("SELECT fruit_name FROM smoothies.public.fruit_options")
+st.dataframe(my_dataframe)
 
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients'
-    , my_dataframe
+    , st.dataframe
     , max_selections = 5
 )
 
