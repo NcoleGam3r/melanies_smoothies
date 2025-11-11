@@ -55,7 +55,17 @@ if ingredients_list:
     time_to_start = st.button('Submit Order')
 
     if time_to_start:
-        # session.sql(my_insert_stmt).collect()
-        cnx.sql(my_insert_stmt)
+        try:
+            # Access the raw connection and create a cursor
+            raw_conn = cxn.raw_connection
+            cursor = raw_conn.cursor()
+            cursor.execute(my_insert_stmt)
+            raw_conn.commit()
+            st.success("Data inserted successfully.")
+        except Exception as e:
+            st.error(f"Error inserting data: {e}")
+        finally:
+            cursor.close()
+            raw_conn.close()
         
         st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
