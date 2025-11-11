@@ -38,7 +38,7 @@ st.write('The name on your Smoothie will be:', name_on_order)
 def get_dropdown_options(table_name, column_name):
     query = f"SELECT DISTINCT {column_name} FROM {table_name}"
     # Use session.sql to run the query and convert to a Pandas DataFrame
-    my_dataframedf = cnx.query(query) 
+    my_dataframe = cnx.query(query) 
     st.dataframe(my_dataframe).to_pandas()
     # Extract the column values into a list
     options_list = df[column_name].tolist()
