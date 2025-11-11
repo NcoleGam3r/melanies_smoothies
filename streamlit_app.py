@@ -21,11 +21,11 @@ my_dataframe = cnx.query("SELECT fruit_name FROM smoothies.public.fruit_options"
 st.dataframe(my_dataframe)
 
 # df = session.table(smoothies.public.fruit_options).select(fruit_name).distinct().to_pandas()
-dropdown_options = st.dataframe.tolist()
+options_list = df[column_name].tolist()
 
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients'
-    , dropdown_options
+    , options_list
     , max_selections = 5
 )
 
