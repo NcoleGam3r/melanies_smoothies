@@ -12,9 +12,6 @@ cursor = raw_conn.cursor()
 # Define your table and column names
 TABLE_NAME = 'SMOOTHIES.PUBLIC.FRUIT_OPTIONS' 
 COLUMN_NAME = 'FRUIT_NAME'
-COLUMN_NAME_2 = 'SEARCH_ON'
-
-
 
 # Write directly to the app
 st.title(f":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
@@ -28,8 +25,8 @@ st.write('The name on your Smoothie will be:', name_on_order)
 
 query = f"SELECT DISTINCT FRUIT_NAME , SEARCH_ON FROM SMOOTHIES.PUBLIC.FRUIT_OPTIONS"
 my_dataframe = cnx.query(query) 
-st.dataframe(data=my_dataframe, use_container_width = True)
-st.stop()
+# st.dataframe(data=my_dataframe, use_container_width = True)
+# st.stop()
 
 pd_df = my_dataframe.to_pandas
 st.dataframe(pd_df)
