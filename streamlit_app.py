@@ -21,10 +21,8 @@ st.write('The name on your Smoothie will be:', name_on_order)
 @st.cache_data
 def get_dropdown_options(table_name, column_name):
     query = f"SELECT DISTINCT {column_name} FROM {table_name}"
-    # Use session.sql to run the query and convert to a Pandas DataFrame
+    # Use preset connection to run the query and convert to a Pandas DataFrame
     my_dataframe = cnx.query(query) 
-    # df = my_dataframe.to_pandas()
-    
     # Extract the column values into a list
     options_list = my_dataframe[column_name].tolist()
     return options_list
@@ -58,6 +56,6 @@ if ingredients_list:
 
     if time_to_start:
         # session.sql(my_insert_stmt).collect()
-        cnx.query(my_insert_stmt)
+        cnx.sql(my_insert_stmt)
         
         st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
