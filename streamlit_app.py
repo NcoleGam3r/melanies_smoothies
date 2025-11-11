@@ -18,7 +18,6 @@ st.write(
 name_on_order =st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
-
 @st.cache_data
 def get_dropdown_options(table_name, column_name):
     query = f"SELECT DISTINCT {column_name} FROM {table_name}"
@@ -28,7 +27,7 @@ def get_dropdown_options(table_name, column_name):
     options_list = my_dataframe[column_name].tolist()
     return options_list
     
-   # Define your table and column names
+# Define your table and column names
 TABLE_NAME = 'SMOOTHIES.PUBLIC.FRUIT_OPTIONS' 
 COLUMN_NAME = 'FRUIT_NAME'
 
@@ -63,3 +62,8 @@ if ingredients_list:
                 st.success("""Your Smoothie is ordered, '""" + name_on_order +"""'!""", icon="✅")
         except Exception as e:
             st.error(f"Error inserting data: {e}")
+
+#New section to display smoothiefroot nutrition information
+import requests
+smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+st.text(smoothiefroot_response.json())
